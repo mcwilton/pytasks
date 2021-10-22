@@ -9,7 +9,8 @@ class CreateUserForm(UserCreationForm):
     first_name = forms.CharField(label="Enter first name",max_length=50)
     second_name = forms.CharField(label="Enter last name",max_length=100)
     email = forms.EmailField(label="Enter email",max_length=50)
-    mobile = PhoneNumberField()
+    phone = PhoneNumberField()
+    id_number = forms.CharField()
     address = forms.CharField()
     id_file  = forms.FileField() 
     address_file  = forms.FileField() 
@@ -17,16 +18,16 @@ class CreateUserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username',  'email', 'password1', 'password2', 'first_name', 'second_name', 'mobile', 'address', 'id_file', 'address_file']
+        fields = ['username',  'email', 'password1', 'password2', 'first_name', 'second_name', 'phone', 'address', 'id_file', 'address_file']
 
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username',  'email', 'mobile', 'address',]
+        fields = ['username',  'email'] #'mobile', 'address',]
 
     
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['address', 'phone', 'image','mobile']
+        fields = ['address', 'phone']#, 'image']
