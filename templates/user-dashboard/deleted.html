@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %} Deleted Tasks{% endblock %}
+
+
+{% block content %}
+
+{% include 'topbar.html' %}
+
+<!--Table-->
+<div class="container">
+    <div class="row my-4">
+        <div class="col-md-4"></div>
+            <div class="col-md-8">
+                <table class="table bg-white">
+                    <thead class="bg-info">
+                        <tr class="text-white">
+
+                        <th scope="row">#</th>
+                        <th scope="row">Task Name</th>
+                        <th scope="col">Date Deleted</th>
+                        <th scope="col">Status</th>                    
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {%  for deleted_task in deleted_tasks%}
+                        <tr>
+                        <td></td>
+                        <td>{{ deleted_task.task }}</td>
+                        <td>{{ deleted_task.date }}</td>
+                        <td>{{ deleted_task.status }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

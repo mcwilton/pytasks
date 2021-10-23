@@ -1,187 +1,144 @@
-# from django.shortcuts import redirect, render
-# from .models import *
-# from django.contrib.auth.decorators import login_required
-# from .forms import CurrentForm
-# from django.contrib import messages
-
-# #import xlwt
-# from django.http import HttpResponse
-# from django.contrib.auth.models import User
-# from datetime import datetime, timezone
+from django.shortcuts import redirect, render
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+from .models import *
+from django.contrib.auth.decorators import login_required
+from .forms import CurrentForm
+from django.contrib import messages
+from datetime import datetime, timezone
 
 
-# # Create your views here.
-
-# @login_required(login_url='account-login')
-# def index(request):
-#     completed_tasks_count = Current.objects.filter(status='Completed').count()
-#     deleted_tasks_count = Current.objects.filter(status='Deleted').count()
-#     current_tasks_count = Current.objects.filter(status='Current').count()
-#     context = {
-#         'completed_tasks_count': completed_tasks_count,
-#         'deleted_tasks_count': deleted_tasks_count,
-#         'current_tasks_count': current_tasks_count,
-#     }
-#     return render(request, 'task/dashboard/index.html', context)
-
-
-# def about(request):
+@login_required(login_url='account-login')
+def index(request):
+    current_tasks_count = Current.objects.filter(status='Current').count()
+    completed_tasks_count = Current.objects.filter(status='Completed').count()
+    deleted_tasks_count = Current.objects.filter(status='Deleted').count()
     
-#     return render(request, 'tasks/dashboard/about.html')
+    context = {
+        'deleted_tasks_count': deleted_tasks_count,
+        'completed_tasks_count': completed_tasks_count,
+        'current_tasks_count': current_tasks_count,
+    }
+    return render(request, 'user-dashboard/index.html', context)
 
-# @login_required(login_url='account-login')
-# def current(request):
-#     curr_tasks = Current.objects.filter(status='Current')
-#     curr_tasks_count = curr_tasks.count()
 
-#     del_tasks_count = Current.objects.filter(status='Deleted').count()
-#     comp_tasks_count = Current.objects.filter(status='Completed').count()
+@login_required(login_url='account-login')
+def current(request):
+    current_tasks = Current.objects.filter(status='Current')
+    current_tasks_count = current_tasks_count.count()
+
+    deleted_tasks_count = Current.objects.filter(status='Deleted').count()
+    completed_tasks_count = Current.objects.filter(status='Completed').count()
    
-#     if request.method == "POST":
-#         form = CurrentForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             task_name = form.cleaned_data.get('task')
-#             messages.success(request, f'{task_name} has been added')
+    if request.method == "POST":
+        form = CurrentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            task_name = form.cleaned_data.get('task')
+            messages.success(request, f'{task_name} has been added')
             
-#             return redirect('dashboard-current')
-#     else:
-#         form = CurrentForm()
+            return redirect('dashboard-current')
+    else:
+        form = CurrentForm()
 
-#     context = {
-#         'comp_tasks_count': comp_tasks_count,
-#         'del_tasks_count': del_tasks_count,
-#         'curr_tasks': curr_tasks,
-#         'curr_tasks_count': curr_tasks_count,
-#         'form': form,
-#     }
-#     return render(request, 'task/dashboard/current.html', context)
-
-
-# @login_required(login_url='account-login')
-# def current_delete(request, pk):
-#     curr_del = Current.objects.get(id=pk)
-#     if request.method == "POST":
-#         curr_del.delete()
-#         return redirect('dashboard-current')
-
-#     return render(request, 'task/dashboard/current_delete.html')
+    context = {
+        'completed_tasks_count': completed_tasks_count,
+        'deleted_tasks_count': deleted_tasks_count,
+        'current_tasks': current_tasks,
+        'current_tasks_count': current_tasks_count,
+        'form': form,
+    }
+    return render(request, 'user-dashboard/current.html', context)
 
 
-# @login_required(login_url='account-login')
-# def current_update(request, pk):
-#     curr_up = Current.objects.get(id=pk)
-#     if request.method == "POST":
-#         form = CurrentForm(request.POST, instance=curr_up)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('dashboard-current')
-#     else:
-#         form = CurrentForm(instance=curr_up)
-#     context = {
-#         'form': form,
-#     }
-#     return render(request, 'task/dashboard/current_update.html', context)
+@login_required(login_url='account-login')
+def current_delete(request, pk):
+    current_deleted = Current.objects.get(id=pk)
+    if request.method == "POST":
+        current_deleted.delete()
+        return redirect('dashboard-current')
+
+    return render(request, 'user-dashboard/current_delete.html')
 
 
-# @login_required(login_url='account-login')
-# def completed_delete(request, pk):
-#     comp_del = Current.objects.get(id=pk)
-#     if request.method == "POST":
-#         comp_del.delete()
-#         return redirect('dashboard-current')
-
-#     return render(request, 'task/dashboard/completed_delete.html')
-
-
-# @login_required(login_url='account-login')
-# def completed_update(request, pk):
-#     comp_up = Current.objects.get(id=pk)
-#     if request.method == "POST":
-#         form = CurrentForm(request.POST, instance=comp_up)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('dashboard-current')
-#     else:
-#         form = CurrentForm(instance=comp_up)
-#     context = {
-#         'form': form,
-#     }
-#     return render(request, 'task/dashboard/completed_update.html', context)
+@login_required(login_url='account-login')
+def current_update(request, pk):
+    current_updated = Current.objects.get(id=pk)
+    if request.method == "POST":
+        form = CurrentForm(request.POST, instance=current_updated)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard-current')
+    else:
+        form = CurrentForm(instance=current_updated)
+    context = {
+        'form': form,
+    }
+    return render(request, 'user-dashboard/current_update.html', context)
 
 
-# @login_required(login_url='account-login')
-# def completed(request):
-#     comp_tasks = Current.objects.filter(status='Completed')
-#     comp_tasks_count = comp_tasks.count()
+@login_required(login_url='account-login')
+def completed_delete(request, pk):
+    completed_deleted = Current.objects.get(id=pk)
+    if request.method == "POST":
+        completed_deleted.delete()
+        return redirect('dashboard-current')
 
-#     del_tasks_count = Current.objects.filter(status='Deleted').count()
-#     curr_tasks_count = Current.objects.filter(status='Current').count()
+    return render(request, 'user-dashboard/completed_delete.html')
+
+
+@login_required(login_url='account-login')
+def completed_update(request, pk):
+    completed_updated = Current.objects.get(id=pk)
+    if request.method == "POST":
+        form = CurrentForm(request.POST, instance=completed_update)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard-current')
+    else:
+        form = CurrentForm(instance=completed_update)
+    context = {
+        'form': form,
+    }
+    return render(request, 'user-dashboard/completed_update.html', context)
+
+
+@login_required(login_url='account-login')
+def completed(request):
+    completed_tasks = Current.objects.filter(status='Completed')
+    completed_tasks_count = completed_tasks.count()
+
+    deleted_tasks_count = Current.objects.filter(status='Deleted').count()
+    current_tasks_count = Current.objects.filter(status='Current').count()
 
 
     
-#     context = {
-#         'comp_tasks': comp_tasks,
-#         'comp_tasks_count': comp_tasks_count,
-#         'del_tasks_count': del_tasks_count,
-#         'curr_tasks_count': curr_tasks_count,
-#     }
-#     return render(request, 'task/dashboard/completed.html', context)
+    context = {
+        'comp_tasks': comp_tasks,
+        'completed_tasks_count': comp_tasks_count,
+        'deleted_tasks_count': del_tasks_count,
+        'current_tasks_count': curr_tasks_count,
+    }
+    return render(request, 'user-dashboard/completed.html', context)
 
 
-# @login_required(login_url='account-login')
-# def deleted(request):
-#     del_tasks = Current.objects.filter(status='Deleted')
-#     del_tasks_count = del_tasks.count()
-#     comp_tasks_count = Current.objects.filter(status='Completed').count()
-#     curr_tasks_count = Current.objects.filter(status='Current').count()
+@login_required(login_url='account-login')
+def deleted(request):
+    deleted_tasks = Current.objects.filter(status='Deleted')
+    deleted_tasks_count = del_tasks.count()
+    completed_tasks_count = Current.objects.filter(status='Completed').count()
+    current_tasks_count = Current.objects.filter(status='Current').count()
 
-#     context = {
-#         'del_tasks': del_tasks,
-#         'comp_tasks_count': comp_tasks_count,
-#         'del_tasks_count': del_tasks_count,
-#         'curr_tasks_count': curr_tasks_count,
-#     }
+    context = {
+        'del_tasks': delete_tasks,
+        'comp_tasks_count': complete_tasks_count,
+        'del_tasks_count': delete_tasks_count,
+        'curr_tasks_count': curr_tasks_count,
+    }
     
-#     return render(request, 'task/dashboard/deleted.html', context)
+    return render(request, 'user-dashboard/deleted.html', context)
 
 
-# @login_required(login_url='account-login')
-# def export_excel(request, id):
-#     if id == 1: # current
-#         obj = Current
-#         obj_name = 'Current'
-#     elif id == 2: # completed
-#         obj = Completed
-#         obj_name = 'Completed'
-#     elif id == 3: # Deleted
-#         obj = Deleted
-#         obj_name = 'Deleted'
-#     else:
-#         print('no id')
-
+def about(request):
     
-#     response=HttpResponse(content_type='application/ms-excel')
-#     response['Content-Disposition'] = f'attachment; filename={obj_name}.xls' 
-  
-#     wb = xlwt.Workbook(encoding='utf-8')
-#     ws = wb.add_sheet(f'{obj_name} Tasks')
-#     row_num = 0
-
-#     font_style = xlwt.XFStyle()
-#     font_style.font.bold = True
-
-#     columns = ['task', 'user', 'date', 'status']
-
-#     for col_num in range(len(columns)):
-#         ws.write(row_num, col_num, columns[col_num], font_style) # at 0 row 0 column 
-
-#     curr_tasks = Current.objects.filter(status=f'{obj_name}').values_list('task', 'user', 'date', 'status')
-    
-#     for row in curr_tasks:
-#         row_num += 1
-#         for col_num in range(len(row)):
-#             ws.write(row_num, col_num, row[col_num])
-        
-#     wb.save(response)
-#     return response
+    return render(request, 'user-dashboard/about.html')
