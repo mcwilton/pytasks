@@ -4,3 +4,4 @@ django-crispy-forms==1.13.0
 mysql-connector-python==8.0.26
 asgiref==3.4.1
 crispy_forms
+xlwt

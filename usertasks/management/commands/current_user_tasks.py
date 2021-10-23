@@ -8,6 +8,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         current_tasks = Current.objects.all()
 
-        for task in taskss:
+        if not current_tasks:
+            raise CommandError('No tasks', returncode=2)
+
+        for task in current_tasks:
             task.current()
-            self.stdout.write(f'Here is the "{task}"')
+            self.stdout.write(self.style.SUCCESS(f'Here is the "{task}"'))
+
