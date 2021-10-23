@@ -19,7 +19,7 @@ STATUS = (
 class Current(models.Model):
     task = models.CharField(max_length=100, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    date = models.DateTimeField(default=aware_datetime, null=True)
+    date = models.DateTimeField(blank=True,null=True)
     status = models.CharField(max_length=50, choices=STATUS, null=True)
 
 
@@ -32,7 +32,8 @@ class Current(models.Model):
 
 class Completed(models.Model):
     task = models.ForeignKey(Current, on_delete=models.CASCADE, null=True)
-    date = models.DateTimeField(default=aware_datetime, null=True)
+    #date = models.DateTimeField(default=aware_datetime, null=True)
+    date = models.DateTimeField(blank=True,null=True)
     status = models.CharField(max_length=20, choices=STATUS, null=True)
 
 
@@ -45,7 +46,8 @@ class Completed(models.Model):
 
 class Deleted(models.Model):
     task = models.ForeignKey(Current, on_delete=models.CASCADE, null=True)
-    date = models.DateTimeField(default=aware_datetime, null=True)
+    #date = models.DateTimeField(default=aware_datetime, null=True)
+    date = models.DateTimeField(blank=True,null=True)
     status = models.CharField(max_length=20, choices=STATUS, null=True)
 
     class Meta:

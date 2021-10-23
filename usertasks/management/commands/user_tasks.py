@@ -25,13 +25,13 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         row_num = 2
 
-        columns = ['Task', 'User', 'Status']
+        columns = ['Task', 'User', 'Status','Date']
 
 
         for col_num in range(len(columns)):
             worksheet.write(row_num, col_num, columns[col_num])
 
-        rows = Current.objects.all().values_list('task', 'user', 'status')
+        rows = Current.objects.all().values_list('task', 'user', 'status', 'date')
         for row in rows:
             row_num += 1
             for col_num in range(len(row)):

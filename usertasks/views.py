@@ -19,7 +19,7 @@ def index(request):
         'completed_tasks_count': completed_tasks_count,
         'current_tasks_count': current_tasks_count,
     }
-    return render(request, 'user-dashboard/index.html', context)
+    return render(request, 'dash/index.html', context)
 
 
 @login_required(login_url='account-login')
@@ -48,7 +48,7 @@ def current(request):
         'current_tasks_count': current_tasks_count,
         'form': form,
     }
-    return render(request, 'user-dashboard/current.html', context)
+    return render(request, 'dash/current.html', context)
 
 
 @login_required(login_url='account-login')
@@ -58,7 +58,7 @@ def current_delete(request, pk):
         current_deleted.delete()
         return redirect('dashboard-current')
 
-    return render(request, 'user-dashboard/current_delete.html')
+    return render(request, 'dash/current_delete.html')
 
 
 @login_required(login_url='account-login')
@@ -74,7 +74,7 @@ def current_update(request, pk):
     context = {
         'form': form,
     }
-    return render(request, 'user-dashboard/current_update.html', context)
+    return render(request, 'dash/current_update.html', context)
 
 
 @login_required(login_url='account-login')
@@ -84,7 +84,7 @@ def completed_delete(request, pk):
         completed_deleted.delete()
         return redirect('dashboard-current')
 
-    return render(request, 'user-dashboard/completed_delete.html')
+    return render(request, 'dash/completed_delete.html')
 
 
 @login_required(login_url='account-login')
@@ -100,7 +100,7 @@ def completed_update(request, pk):
     context = {
         'form': form,
     }
-    return render(request, 'user-dashboard/completed_update.html', context)
+    return render(request, 'dash/completed_update.html', context)
 
 
 @login_required(login_url='account-login')
@@ -119,7 +119,7 @@ def completed(request):
         'deleted_tasks_count': del_tasks_count,
         'current_tasks_count': curr_tasks_count,
     }
-    return render(request, 'user-dashboard/completed.html', context)
+    return render(request, 'dash/completed.html', context)
 
 
 @login_required(login_url='account-login')
@@ -136,9 +136,9 @@ def deleted(request):
         'curr_tasks_count': curr_tasks_count,
     }
     
-    return render(request, 'user-dashboard/deleted.html', context)
+    return render(request, 'dash/deleted.html', context)
 
 
 def about(request):
     
-    return render(request, 'user-dashboard/about.html')
+    return render(request, 'dash/about.html')
