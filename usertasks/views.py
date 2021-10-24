@@ -25,7 +25,7 @@ def index(request):
 @login_required(login_url='account-login')
 def current(request):
     current_tasks = Current.objects.filter(status='Current')
-    current_tasks_count = current_tasks_count.count()
+    current_tasks_count = current_tasks.count()
 
     deleted_tasks_count = Current.objects.filter(status='Deleted').count()
     completed_tasks_count = Current.objects.filter(status='Completed').count()
@@ -114,10 +114,10 @@ def completed(request):
 
     
     context = {
-        'comp_tasks': comp_tasks,
-        'completed_tasks_count': comp_tasks_count,
-        'deleted_tasks_count': del_tasks_count,
-        'current_tasks_count': curr_tasks_count,
+        'completed_tasks': completed_tasks,
+        'completed_tasks_count': completed_tasks_count,
+        'deleted_tasks_count': deleted_tasks_count,
+        'current_tasks_count': current_tasks_count,
     }
     return render(request, 'dash/completed.html', context)
 
@@ -125,15 +125,15 @@ def completed(request):
 @login_required(login_url='account-login')
 def deleted(request):
     deleted_tasks = Current.objects.filter(status='Deleted')
-    deleted_tasks_count = del_tasks.count()
+    deleted_tasks_count =  deleted_tasks.count()
     completed_tasks_count = Current.objects.filter(status='Completed').count()
     current_tasks_count = Current.objects.filter(status='Current').count()
 
     context = {
-        'del_tasks': delete_tasks,
-        'comp_tasks_count': complete_tasks_count,
-        'del_tasks_count': delete_tasks_count,
-        'curr_tasks_count': curr_tasks_count,
+        'deleted_tasks': deleted_tasks,
+        'deleted_tasks_count': completed_tasks_count,
+        'deleted_tasks_count': deleted_tasks_count,
+        'current_tasks_count': current_tasks_count,
     }
     
     return render(request, 'dash/deleted.html', context)
