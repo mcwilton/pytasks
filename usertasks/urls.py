@@ -11,4 +11,4 @@ urlpatterns = [
     path('completed_update/<int:pk>/', views.completed_update, name='dashboard-completed-update'),
     path('completed/', views.completed, name='dashboard-completed'),
     path('deleted/', views.deleted, name='dashboard-deleted'),
-    ]
+]

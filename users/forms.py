@@ -6,28 +6,28 @@ from phonenumber_field.formfields import PhoneNumberField
 
 
 class CreateUserForm(UserCreationForm):
-    first_name = forms.CharField(label="Enter first name", max_length=50)
-    second_name = forms.CharField(label="Enter last name", max_length=100)
-    email = forms.EmailField(label="Enter email", max_length=50)
-    phone = PhoneNumberField()
-    id_number = forms.CharField()
-    address = forms.CharField(label="Enter address", max_length=200)
-    id_file  = forms.ImageField()
-    address_file  = forms.ImageField() 
+    first_name = forms.CharField(label="Enter First Name", max_length=50)
+    second_name = forms.CharField(label="Enter Last Name", max_length=100)
+    email = forms.EmailField(label="Enter Email", max_length=50)
+    phone = PhoneNumberField(label="Enter Phone Number")
+    id_number = forms.CharField(label="Enter ID Number")
+    address = forms.CharField(label="Enter Home Address", max_length=200)
+    id_image = forms.ImageField(label="Upload ID Image", required=False)
+    address_image  = forms.ImageField(label="Upload Address Image", required=False)
 
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'second_name', 'email', 'phone', 'id_number', 'address','password1', 'password2', 'id_file', 'address_file']
+        fields = ['username', 'first_name', 'second_name', 'email', 'phone', 'id_number', 'address','password1', 'password2', 'id_image', 'address_image']
 
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['email']#,'first_name', 'second_name', 'phone', 'id_number', 'address', 'id_file', 'address_file']
+        fields = ['email','first_name'] # 'second_name', 'phone', 'id_number', 'address']
 
     
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['email']#'first_name', 'second_name', 'phone', 'id_number', 'address', 'id_file', 'address_file']
+        fields = ['email', 'first_name']# 'second_name', 'phone', 'id_number', 'address']

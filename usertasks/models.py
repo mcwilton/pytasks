@@ -19,7 +19,7 @@ STATUS = (
 class Current(models.Model):
     task = models.CharField(max_length=100, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    date = models.DateTimeField(blank=True,null=True)
+    date = models.DateTimeField(default=aware_datetime, null=True)
     status = models.CharField(max_length=50, choices=STATUS, null=True)
 
 
