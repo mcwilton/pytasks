@@ -5,40 +5,46 @@
 			<div class="col-md-4">
 				<div class="card">
 					<div class="card-header bg-info text-white">
-						About
+					Menu
 					</div>
 					<div class="card-body">
-						<marquee behavior="" direction="">
-							<h3 class="my-4">Devs</h3>
-						</marquee>
+						
+
+						<div class="col-md-12">
+						<div class="card">
+							  <a class="btn btn-warning btn-sm float-left text-white" href="{% url 'dashboard-current' %}"><b>Create New Task </b></a>
+						</div>
+
+
+					</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-md-8">
-				<div class="card">
-					<div class="card-header bg-info text-white">
-						Statistics
+				<div class="card ">
+					<div class="card-header btn-primary text-white">
+						
 					</div>
-					<div class="card-body">
+					<div class="card-body ">
 						<div class="row">
-							<div class="col-md-4">
-								<a class="text-decoration-none text-dark" href="{% url 'dashboard-current' %}">
+							<div class="col-md-4 text-white bg-danger mb-3">
+								<a class="text-decoration-none text-white" href="{% url 'dashboard-current' %}">
 									<div class="my-card shadow text-center p-3">
 										<h4>Current Task</h4>
 										<h3>{{ curr_tasks_count }}</h3>
 									</div>
 								</a>			
 							</div>
-							<div class="col-md-4">
-								<a class="text-decoration-none text-dark" href="{% url 'dashboard-completed' %}">
+							<div class="col-md-4 text-white bg-warning mb-3">
+								<a class="text-decoration-none text-white" href="{% url 'dashboard-completed' %}">
 									<div class="my-card shadow text-center p-3">
 										<h4>Completed Task</h4>
 										<h3>{{ comp_tasks_count }}</h3>
 									</div>
 								</a>			
 							</div>
-							<div class="col-md-4">
-								<a class="text-decoration-none text-dark" href="{% url 'dashboard-deleted' %}">
+							<div class="col-md-4 text-white bg-primary mb-3" >
+								<a class="text-decoration-none text-white" href="{% url 'dashboard-deleted' %}">
 									<div class="my-card shadow text-center p-3">
 										<h4>Deleted Task</h4>
 										<h3>{{ del_tasks_count }}</h3>
