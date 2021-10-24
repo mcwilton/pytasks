@@ -12,9 +12,7 @@
 						<a class="nav-link text-white" href="{% url 'dashboard-current' %}">Dashboard <span
                             class="sr-only"></span></a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link text-white" aria-current="page" href="{% url 'dashboard-about' %}">About</a>
-					</li>
+					
 				</ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
@@ -29,12 +27,12 @@
                 {% else %}
             
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="{% url 'account-register' %}">Register <span
-                            class="sr-only"></span></a>
-                    </li>
+                    
                     <li class="nav-item">
                         <a class="nav-link text-white" href="{% url 'account-login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" aria-current="page" href="{% url 'dashboard-about' %}">About</a>
                     </li>
                 </ul>
                 {% endif %}

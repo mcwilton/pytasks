@@ -5,3 +5,4 @@ mysql-connector-python==8.0.26
 asgiref==3.4.1
 crispy_forms
 xlwt
+mysqlclient
